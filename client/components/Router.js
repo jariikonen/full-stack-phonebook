@@ -1,14 +1,14 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import FrontPage from 'Components/FrontPage'
 import MessageView from 'Components/MessageView'
 
 export default () => (
   <div className="content">
-    <Switch>
+    <Routes>
       <Route exact path="/" component={FrontPage} />
       <Route path="/messages" component={MessageView} />
-    </Switch>
+    </Routes>
   </div>
 )
