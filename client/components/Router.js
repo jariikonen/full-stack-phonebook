@@ -7,8 +7,8 @@ import MessageView from 'Components/MessageView';
 const Router = () => (
   <div className="content">
     <Routes>
-      <Route exact path="/" component={FrontPage} />
-      <Route path="/messages" component={MessageView} />
+      <Route exact path="/" element={<FrontPage />} />
+      <Route path="/messages" element={<MessageView />} />
     </Routes>
   </div>
 );
