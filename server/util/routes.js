@@ -1,10 +1,13 @@
 const Router = require('express');
-const messages = require('@controllers/messagesController');
+const phonebook = require('@controllers/phonebookController');
 
 const router = Router();
 
-router.get('/messages', messages.getAll);
-router.post('/messages', messages.create);
-router.delete('/messages/:id', messages.destroy);
+router.get('/info', phonebook.getInfo);
+router.get('/persons', phonebook.getAll);
+router.get('/persons/:id', phonebook.getPerson);
+router.delete('/persons/:id', phonebook.deletePerson);
+router.post('/persons', phonebook.createPerson);
+router.put('/persons/:id', phonebook.updatePerson);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 {
-  "name": "create-app",
-  "version": "1.0.0",
-  "description": "A boilerplate",
+  "name": "full-stack-phonebook",
+  "version": "0.0.1",
+  "description": "Simple phonebook",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon index.js",
@@ -13,8 +13,8 @@
   "engines": {
     "node": ">=10.15"
   },
-  "author": "Jami Kousa",
-  "license": "ISC",
+  "author": "Jari Ikonen",
+  "license": "",
   "dependencies": {
     "@babel/core": "^7.23.0",
     "@babel/polyfill": "^7.12.1",
@@ -42,6 +42,7 @@
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "module-alias": "^2.2.3",
+    "mongoose": "^7.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "*",
