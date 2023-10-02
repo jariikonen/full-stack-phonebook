@@ -24,6 +24,6 @@ jobs:
         uses: cypress-io/github-action@59810ebfa5a5ac6fcfdcfdf036d1cd4d083a88f2 #(v.6.5.0)
         with:
           command: npm run test:e2e
-          start: npm run start-prod
-          wait-on: http://localhost:5000
+          start: npm run start:test
+          wait-on: http://localhost:3001
         if: ${{ !env.ACT }} # skipped when run using nektos/act since the default medium image does not contain xvfb which is required by cypress
