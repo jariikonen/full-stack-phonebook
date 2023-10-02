@@ -22,6 +22,10 @@ jobs:
         run: npm run lint
       - name: e2e tests
         uses: cypress-io/github-action@59810ebfa5a5ac6fcfdcfdf036d1cd4d083a88f2 #(v.6.5.0)
+        env:
+          PORT: 3001
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGODB_TEST_URI: ${{ secrets.MONGODB_TEST_URI }}
         with:
           command: npm run test:e2e
           start: npm run start:test
