@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     browser: true,
+    'cypress/globals': true,
   },
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
@@ -18,9 +19,15 @@ module.exports = {
     'no-shadow': 0,
     'no-plusplus': 0,
     'import/no-import-module-exports': 0,
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
   },
   extends: ['airbnb', 'plugin:jsx-a11y/recommended', 'prettier'],
-  plugins: ['jsx-a11y', 'prettier'],
+  plugins: ['jsx-a11y', 'prettier', 'cypress'],
   settings: {
     'import/resolver': {
       alias: {

@@ -20,3 +20,10 @@ jobs:
         run: npm install
       - name: Check style
         run: npm run lint
+      - name: e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
+        if: ${{ !env.ACT }} # skipped when run using nektos/act since the default medium image does not contain xvfb which is required by cypress

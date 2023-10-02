@@ -5,17 +5,19 @@ const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false);
 
-const url = process.env.MONGODB_URI;
+const { testing } = require('@util/common');
 
-console.log('connecting to MongoDB...');
+const url = testing ? process.env.MONGODB_TEST_URI : process.env.MONGODB_URI;
+const testingStr = testing ? ' (test database)' : '';
+console.log(`connecting to MongoDB${testingStr} ...`);
 
 mongoose
   .connect(url)
   .then((result) => {
-    console.log('connected to MongoDB');
+    console.log(`connected to MongoDB${testingStr}`);
   })
   .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message);
+    console.log(`error connecting to MongoDB${testingStr}:`, error.message);
   });
 
 const personSchema = new mongoose.Schema({

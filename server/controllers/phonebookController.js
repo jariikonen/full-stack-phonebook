@@ -73,6 +73,10 @@ const updatePerson = (request, response, next) => {
     .catch((error) => next(error));
 };
 
+const reset = (request, response, next) => {
+  Person.deleteMany({}).then(response.status(204).end());
+};
+
 module.exports = {
   getInfo,
   getAll,
@@ -80,4 +84,5 @@ module.exports = {
   deletePerson,
   createPerson,
   updatePerson,
+  reset,
 };

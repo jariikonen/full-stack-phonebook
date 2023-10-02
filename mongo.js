@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false);
 
-let password = '';
+let url = '';
 let name = '';
 let number = '';
 let clear = false;
 
 const printUsage = () => {
-  console.log('usage: mongo.js <password> [<name> <number>]');
-  console.log('       mongo.js <password> clear');
-  console.log('       mongo.js <password> list');
+  console.log('usage: mongo.js <url> [<name> <number>]');
+  console.log('       mongo.js <url> clear');
+  console.log('       mongo.js <url> list');
   process.exit(1);
 };
 
-if (process.argv.length < 3) {
+if (process.argv.length < 4) {
   printUsage();
 }
 if (process.argv.length > 2) {
-  [, , password] = process.argv;
+  [, , url] = process.argv;
 }
 if (process.argv.length === 4 && process.argv[3] === 'clear') {
   clear = true;
@@ -28,8 +28,6 @@ if (process.argv.length === 4 && process.argv[3] === 'clear') {
 if (process.argv.length === 5) {
   [, , , name, number] = process.argv;
 }
-
-const url = `mongodb+srv://jikonen:${password}@cluster0.visrgh9.mongodb.net/phonebook?retryWrites=true&w=majority`;
 
 mongoose.connect(url);
 

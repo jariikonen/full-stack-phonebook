@@ -1,5 +1,8 @@
 const express = require('express');
-const routes = require('@util/routes');
+
+const { testing } = require('@util/common');
+const routes = testing ? require('@util/testRoutes') : require('@util/routes');
+
 const errorMiddleware = require('@middleware/errorMiddleware');
 
 const app = express();
