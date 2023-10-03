@@ -1,0 +1,50 @@
+name: Scheduled health check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  health-check:
+    runs-on: ubuntu-22.04
+    env:
+      DEPLOYMENT_URL: https://fullstackphonebook-joyj.onrender.com
+    steps:
+      - name: Check the deployed service URL
+        id: health_check
+        continue-on-error: true
+        uses: jtalk/url-health-check-action@fc2fe2a9ca9c9734d992431b749b79350d771fbb # (v.3.2)
+        with:
+          # Check the following URLs one by one sequentially
+          url: ${{ env.DEPLOYMENT_URL }}/api/revision
+          # Follow redirects, or just report success on 3xx status codes
+          follow-redirect: false # Optional, defaults to "false"
+          # Fail this action after this many failed attempts
+          max-attempts: 3 # Optional, defaults to 1
+          # Delay between retries
+          retry-delay: 5s # Optional, only applicable to max-attempts > 1
+          # Retry all errors, including 404. This option might trigger curl upgrade.
+          retry-all: false # Optional, defaults to "false"
+
+      - name: Notify when health check succeeds
+        if: ${{ steps.health_check.outcome == 'success' }}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112 # (v1.0.4)
+        with:
+          severity: info
+          avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
+          description: Server running at ${{ env.DEPLOYMENT_URL }}.
+          details: This notification was triggered by a ${{ github.event_name }} by ${{ github.actor }}.
+          text: Health check succeeded.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Notify when health check fails
+        if: ${{ steps.health_check.outcome == 'failure' }}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112 # (v1.0.4)
+        with:
+          severity: error
+          avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
+          description: Server not responding at ${{ env.DEPLOYMENT_URL }}.
+          details: This notification was triggered by a ${{ github.event_name }} by ${{ github.actor }}.
+          text: Health check failed.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
