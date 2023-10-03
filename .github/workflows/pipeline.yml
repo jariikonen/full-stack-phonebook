@@ -43,7 +43,7 @@ jobs:
 
       - name: Revision number
         id: revision
-        run: echo "REVISION=$(cat config/common.js | grep '^const revision' | cut -d'=' -f 2 | cut -d';' -f 1)" >> $GITHUB_ENV
+        run: echo "REVISION=$(cat config/common.js | grep '^const revision' | cut -d'=' -f 2 | cut -d "'" -f 2)" >> $GITHUB_ENV
 
       - name: Initiate deployment
         id: init_deploy
