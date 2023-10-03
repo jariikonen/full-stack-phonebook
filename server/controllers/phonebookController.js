@@ -12,6 +12,10 @@ const getInfo = (request, response, next) => {
     .catch((error) => next(error));
 };
 
+const getVersion = (request, response, next) => {
+  response.send('1'); // change this string to ensure a new version deployed
+};
+
 const getAll = (request, response, next) => {
   Person.find({})
     .then((people) => {
@@ -79,6 +83,7 @@ const reset = (request, response, next) => {
 
 module.exports = {
   getInfo,
+  getVersion,
   getAll,
   getPerson,
   deletePerson,

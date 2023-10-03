@@ -10,16 +10,19 @@ on:
 
 jobs:
   simple_deployment_pipeline:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+
       - name: Install dependencies
         run: npm install
+
       - name: Check style
         run: npm run lint
+
       - name: e2e tests
         uses: cypress-io/github-action@59810ebfa5a5ac6fcfdcfdf036d1cd4d083a88f2 #(v.6.5.0)
         env:
@@ -31,3 +34,8 @@ jobs:
           start: npm run start:test
           wait-on: http://localhost:3001
         if: ${{ !env.ACT }} # skipped when run using nektos/act since the default medium image does not contain xvfb which is required by cypress
+
+      - name: Deploy
+        id: deploy
+        run: curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+        if: ${{ github.event_name == 'push' && !env.ACT }}
