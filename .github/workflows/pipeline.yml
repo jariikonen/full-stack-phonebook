@@ -35,7 +35,23 @@ jobs:
           wait-on: http://localhost:3001
         if: ${{ !env.ACT }} # skipped when run using nektos/act since the default medium image does not contain xvfb which is required by cypress
 
-      - name: Deploy
-        id: deploy
+      - name: Revision number
+        id: revision
+        run: echo "REVISION=$(cat config/common.js | grep '^const revision' | cut -d'=' -f 2 | cut -d';' -f 1)" >> $GITHUB_ENV
+
+      - name: Initiate deployment
+        id: init_deploy
         run: curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
         if: ${{ github.event_name == 'push' && !env.ACT }}
+
+      - name: Poll deployment success
+        id: deploy_success
+        uses: artiz/poll-endpoint@bebf08f9b9a25eda76824c4d0cae895cdee684aa # (v1.0.2)
+        with:
+          url: https://fullstackphonebook-joyj.onrender.com/
+          method: GET
+          expectStatus: 200
+          expectBody: '${{ env.REVISION }}'
+          timeout: 300000
+          interval: 10000
+        if: ${{ steps.init_deploy.outcome == 'success' }}
