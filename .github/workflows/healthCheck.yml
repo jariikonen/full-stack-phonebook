@@ -43,7 +43,7 @@ jobs:
         with:
           severity: error
           avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
-          description: Server not responding at ${{ env.DEPLOYMENT_URL }}.
+          description: Trouble with server at ${{ env.DEPLOYMENT_URL }}.
           details: This notification was triggered by a ${{ github.event_name }} by ${{ github.actor }}.
           text: Health check failed.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
