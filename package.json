@@ -14,7 +14,7 @@
     "test:e2e": "cypress run"
   },
   "engines": {
-    "node": ">=10.15"
+    "node": "18.18.0"
   },
   "author": "Jari Ikonen",
   "license": "",
