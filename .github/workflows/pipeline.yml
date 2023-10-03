@@ -48,7 +48,7 @@ jobs:
         id: deploy_success
         uses: artiz/poll-endpoint@bebf08f9b9a25eda76824c4d0cae895cdee684aa # (v1.0.2)
         with:
-          url: https://fullstackphonebook-joyj.onrender.com/
+          url: https://fullstackphonebook-joyj.onrender.com/api/revision
           method: GET
           expectStatus: 200
           expectBody: '${{ env.REVISION }}'
