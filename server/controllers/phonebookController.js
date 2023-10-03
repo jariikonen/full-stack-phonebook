@@ -1,3 +1,4 @@
+const { revision } = require('@util/common');
 const Person = require('../models/person');
 
 const getInfo = (request, response, next) => {
@@ -12,8 +13,8 @@ const getInfo = (request, response, next) => {
     .catch((error) => next(error));
 };
 
-const getVersion = (request, response, next) => {
-  response.send('2'); // change this string to ensure a new version deployed
+const getRevision = (request, response, next) => {
+  response.send(revision.toString());
 };
 
 const getAll = (request, response, next) => {
@@ -83,7 +84,7 @@ const reset = (request, response, next) => {
 
 module.exports = {
   getInfo,
-  getVersion,
+  getRevision,
   getAll,
   getPerson,
   deletePerson,

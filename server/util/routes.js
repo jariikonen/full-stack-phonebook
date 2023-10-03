@@ -4,7 +4,7 @@ const phonebook = require('@controllers/phonebookController');
 const router = Router();
 
 router.get('/info', phonebook.getInfo);
-router.get('/version', phonebook.getVersion);
+router.get('/revision', phonebook.getRevision);
 router.get('/persons', phonebook.getAll);
 router.get('/persons/:id', phonebook.getPerson);
 router.delete('/persons/:id', phonebook.deletePerson);

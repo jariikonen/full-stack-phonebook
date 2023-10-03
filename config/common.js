@@ -3,7 +3,9 @@
  */
 
 const inProduction = process.env.NODE_ENV === 'production';
+const revision = 3; // change this string to ensure a new version deployed
 
 module.exports = {
   inProduction,
+  revision,
 };
