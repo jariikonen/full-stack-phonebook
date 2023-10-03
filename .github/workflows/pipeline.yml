@@ -81,3 +81,18 @@ jobs:
           description: Commit [${{ env.COMMIT_SHA }}](${{ env.COMMIT_URL }}) by ${{ env.ACTOR }}.
           text: ${{ env.REPOSITORY }} build failed.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@a2c70ae13a881faf2b4953baaa9e49731997ab36 # (v1.67.0)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          DRY_RUN: false
+        if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
