@@ -14,7 +14,13 @@ const getInfo = (request, response, next) => {
 };
 
 const getRevision = (request, response, next) => {
-  response.send(revision.toString());
+  Person.countDocuments({})
+    .then((count) => {
+      if (count) {
+        response.send(revision.toString());
+      }
+    })
+    .catch((error) => response.status(404).send(`${revision} - ${error}`));
 };
 
 const getAll = (request, response, next) => {
